@@ -8,14 +8,16 @@
       "ecmaVersion": 2017,
       "sourceType": "module",
       "ecmaFeatures": {
-          "experimentalObjectRestSpread": true
+          "experimentalObjectRestSpread": true,
+          "jsx": true
       }
   },
   "extends": ["plugin:node/recommended"],
   "plugins": [
       "prettier",
       "mocha-no-only",
-      "node"
+      "node",
+      "jsx"
   ],
   "rules": {
       "prettier/prettier": [
@@ -39,6 +41,7 @@
       "constructor-super": "warn",
       "valid-typeof": "warn",
       "mocha-no-only/mocha-no-only": "error",
-      "node/exports-style": ["error", "module.exports"]
+      "node/exports-style": ["error", "module.exports"],
+      "node/no-unsupported-features": "off  "
   }
 }
