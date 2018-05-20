@@ -58,6 +58,8 @@
     "build:docker:backend": "cp -R node-conduit-additions/ node_modules/conduit-node && docker build node_modules/conduit-node -t giltayar/realworld-frontend-testing-backend",
     "test": "docker-compose kill && docker-compose rm -fsv && docker-compose up -d && npm run test:mocha && docker-compose kill && docker-compose rm -fv",
     "test:mocha": "mocha --no-timeouts",
+    "test:visual-components": "mocha --no-timeouts --exit test/visual-component*.test.js",
+    "test:visual-app": "npm start -- -d && mocha --no-timeouts --exit test/visual-app*.test.js ; docker-compose down",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"

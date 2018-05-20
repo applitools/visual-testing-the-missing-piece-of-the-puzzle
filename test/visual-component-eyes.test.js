@@ -6,9 +6,7 @@ const {Eyes} = require('eyes.selenium')
 require('chromedriver')
 const {By, until, Key} = webdriver
 
-require('chai').use(require('chai-image-assert')(__dirname))
-
-describe('visual components', function() {
+describe('visual components  (eyes)', function() {
   let driver
   before(
     async () =>
@@ -20,22 +18,26 @@ describe('visual components', function() {
 
   let eyes
   before(async () => {
+    eyes = new Eyes()
+    eyes.setApiKey(process.env.APPLITOOLS_API_KEY)
+
+    await eyes.open(driver, 'Test', 'visual-testing-missing-piece', {width: 800, height: 600})
+
     await driver.get('http://localhost:9009')
   })
+  after(async () => await eyes.close())
 
   it('should show "no user" correctly', async () => {
     const noUser = await driver.findElement(By.linkText('no user'))
     await noUser.click()
 
-    const screenshot = new Buffer(await driver.takeScreenshot(), 'base64')
-
-    expect(screenshot).to.matchImage('no-user')
+    await eyes.checkWindow('no-user')
   })
 
   it('should show "with user" correctly', async () => {
     const noUser = await driver.findElement(By.linkText('with user'))
     await noUser.click()
 
-    expect(new Buffer(await driver.takeScreenshot(), 'base64')).to.matchImage('with-user')
+    await eyes.checkWindow('with-user')
   })
 })
